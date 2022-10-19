@@ -17,6 +17,7 @@ dic = {
     "r": swap + "Coding/R",
     "gui": swap + "guitar",
     "project": uni + "LargeScaleML",
+    "quantum": uni + "QuantumComputing",
 }
 
 

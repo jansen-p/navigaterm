@@ -205,7 +205,8 @@ class Tracker:
             else:
                 # if inp.lower() in row[0].lower(): #case-insensitive comparison
                 if match(key, inp.lower()):
-                    self.data[pth] += 1
+                    if key:
+                        self.data[pth] += 1
                     self.save()
                     print(self.current_location + "/" + pth)
                     return True
