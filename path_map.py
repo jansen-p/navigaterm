@@ -6,18 +6,19 @@ import os
 
 NAS = os.getenv("NAS")
 
-uni = NAS + "/uni/1Master/3.Sem/"
+uni = NAS + "/uni/1Master/4.Sem/"
 swap = NAS + "/swap/"
 home = str(Path.home())
 
 dic = {
     "dot": home + "/.dotfiles",
+    "coding": home + "/Coding",
     "swap": swap,
     "pyt": swap + "Coding/pyt",
     "r": swap + "Coding/R",
     "gui": swap + "guitar",
     "project": uni + "LargeScaleML",
-    "quantum": uni + "QuantumComputing",
+    "uni": NAS + "/uni/1Master"
 }
 
 
@@ -35,5 +36,8 @@ elif inp == "list":
     for key, val in dic.items():
         t.add_row([key, val])
     print(t)
+elif inp == "keylist":
+    for key in dic.keys():
+        print(key)
 else:
     print(home)

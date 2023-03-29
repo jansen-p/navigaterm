@@ -169,7 +169,14 @@ class Tracker:
     # given a 'search string', traverses the sorted dictionary and checks if there are matching entries
     # prints the full path of the first match
     # uses case-insensitive string comparison
-    def find_hit(self, inp, match: Callable, match_file=False, response=False):
+    def find_hit(
+        self,
+        inp,
+        match: Callable,
+        match_file=False,
+        response=False,
+        ignore_dotfiles=True,
+    ):
 
         sorted_tuples = self.sort_dict()
 
@@ -182,8 +189,10 @@ class Tracker:
         for pth, score in sorted_tuples:
             # return match with highest score
             slash_occurrency = [m.start() for m in re.finditer("/", pth.lower())]
-            if len(slash_occurrency) > 2:  # if more than 2 '/' found, cut entries
-                start = slash_occurrency[-2] + 1
+            if (
+                len(slash_occurrency) > self.depth
+            ):  # if more than 2 '/' found, cut entries
+                start = slash_occurrency[-self.depth] + 1
             else:
                 start = 0  # don't cut entries
             key = pth.lower()[start:]
@@ -197,9 +206,14 @@ class Tracker:
                 ]
                 for f in gen(key, files):
                     if match(f.lower(), inp.lower()):
+                        f_name = f.split("/")[-1]
+                        if ignore_dotfiles and f_name[0] == ".":  # ignore hidden files
+                            continue
                         os.system(
                             "open "
-                            + os.path.join(self.current_location, pth, f.split("/")[-1])
+                            + os.path.join(
+                                self.current_location, pth.replace(" ", "\ "), f_name,
+                            )
                         )
                         return True
             else:

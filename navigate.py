@@ -97,11 +97,11 @@ if args.init:
         f"This will initialize/overwrite the history for this dir ({loc}). Continue? (y/n) "
     )
     if val.lower() == "y":
-        tracker = Tracker(loc, loc_name, depth=3, init=True)
+        tracker = Tracker(loc, loc_name, depth=4, init=True)
         tracker.save()
     exit()
 
-tracker = Tracker(loc, loc_name, depth=3)
+tracker = Tracker(loc, loc_name, depth=4)
 
 # print the first n sorted entries
 if args.show:
