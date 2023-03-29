@@ -1,2 +1,3 @@
 .location
 __pycache__/**
+config.py

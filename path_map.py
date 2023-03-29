@@ -1,43 +1,25 @@
 #!/usr/bin/env python3.7
 import sys
+import config
 from prettytable import PrettyTable
-from pathlib import Path
-import os
-
-NAS = os.getenv("NAS")
-
-uni = NAS + "/uni/1Master/4.Sem/"
-swap = NAS + "/swap/"
-home = str(Path.home())
-
-dic = {
-    "dot": home + "/.dotfiles",
-    "coding": home + "/Coding",
-    "swap": swap,
-    "pyt": swap + "Coding/pyt",
-    "r": swap + "Coding/R",
-    "gui": swap + "guitar",
-    "project": uni + "LargeScaleML",
-    "uni": NAS + "/uni/1Master"
-}
 
 
 def get_dict():
-    return dic
+    return config.maps
 
 
 inp = sys.stdin.readline().strip()
-if inp in dic:
-    print(dic[inp])
+if inp in config.maps:
+    print(config.maps[inp])
 elif inp == "list":
     t = PrettyTable(["Key", "Path"])
     t.align["Key"] = "l"
     t.align["Path"] = "l"
-    for key, val in dic.items():
+    for key, val in config.maps.items():
         t.add_row([key, val])
     print(t)
 elif inp == "keylist":
-    for key in dic.keys():
+    for key in config.maps.keys():
         print(key)
 else:
-    print(home)
+    print(config.home)
